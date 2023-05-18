@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - image: docker.io/{docker_user}/{model_name}:{github.sha}
-        name: kafka-consumer
+        name: {model_name}
 #        envFrom:
 #        - configMapRef:
 #            name: adsoftsito-config
