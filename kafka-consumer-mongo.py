@@ -11,6 +11,7 @@ import json
 uri = "mongodb+srv://rodrigomencias08:pokemon64@cluster0.7ipkl3j.mongodb.net/?retryWrites=true&w=majority"
 # "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.2"
 
+
 # Create a new client and connect to the server
 #client = MongoClient(uri, server_api=ServerApi('1'))
 # Send a ping to confirm a successful connection
