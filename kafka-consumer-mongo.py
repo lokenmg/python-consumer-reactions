@@ -53,20 +53,17 @@ for msg in consumer:
     try:
         agg_result =db.peliculas_info.agregate(
             [{
-                
                 "$group" :
-                
                 {
                     "_id": "$name",
                     "n"  : {"$sum" : 1}
                 }
                 }])
-        
         db.peliculas_summary.delete_many({})
         for i in agg_result:
             print (i)
             sumary_id = db.peliculas_suammary.insert_one(i)
-            print("Sumary inserted with record ids", sumary_id)
+            print("Sumary inserted with record ids", summary_id)
     except Exception as e:
         print(f'group by caunght {type(e)}: ')
         print(e)
