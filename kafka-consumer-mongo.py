@@ -49,15 +49,19 @@ for msg in consumer:
        print("Data inserted with record ids", pelicula_id)
     except:
        print("Could not insert into MongoDB")
+    
     try:
-       ago_result =db.peliculas_info.agregate(
-        [{
-            "$group" :
-            {
-                "_id": "$name",
-                "n"  : {"$sum" : 1}
-         }
-        }])
+        ago_result =db.peliculas_info.agregate(
+            [{
+                
+                "$group" :
+                
+                {
+                    "_id": "$name",
+                    "n"  : {"$sum" : 1}
+                }
+                }])
+        
         db.peliculas_sumary.delete_many({})
         for i in agg_result:
             print (i)
