@@ -65,7 +65,7 @@ for msg in consumer:
         db.peliculas_summary.delete_many({})
         for i in agg_result:
             print (i)
-            sumary_id = db.peliculas_suammry.insert_one(i)
+            sumary_id = db.peliculas_suammary.insert_one(i)
             print("Sumary inserted with record ids", sumary_id)
     except Exception as e:
         print(f'group by caunght {type(e)}: ')
