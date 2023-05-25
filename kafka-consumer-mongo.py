@@ -49,3 +49,22 @@ for msg in consumer:
        print("Data inserted with record ids", pelicula_id)
     except:
        print("Could not insert into MongoDB")
+    
+    
+try:
+    ago_result =db.memes.delete_many({})
+    [{
+        "$group" :
+        {
+            "_id": "$name",
+            "n"  : {"$sum" : 1}
+        }
+    }]
+    db.memes_sumary.delete_many({})
+    for i in agg_result:
+        print (i)
+        sumary_id = de.memes_suamry.insert_one(i)
+        print("Sumary inserted with record ids", sumary_id)
+except Exception as e:
+    print(f'group by caunght {type(e)}: ')
+    print(e)
