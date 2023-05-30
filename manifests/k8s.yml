@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {model_name}
+  name:  {model_name}-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {model_name}
+      app: {model_name}-deployment
   template:
     metadata:
       labels:
-        app: {model_name}
+        app: {model_name}-deployment
     spec:
       containers:
       - image: docker.io/{docker_user}/{model_name}:{github.sha}
-        name: {model_name}
+        name: {model_name}-deployment
 #        envFrom:
 #        - configMapRef:
 #            name: adsoftsito-config
@@ -29,13 +29,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {model_name}
+  name: {model_name}-deployment
   annotations:
     dev.okteto.com/auto-ingress: "true"
 spec:
   type: ClusterIP  
   ports:
-  - name: "python-consumer"
+  - name: {model_name}-deployment
     port: 8081
   selector:
-    app: {model_name}
+    app: {model_name}-deployment
