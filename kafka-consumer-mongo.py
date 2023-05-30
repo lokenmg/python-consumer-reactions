@@ -34,26 +34,36 @@ try:
 except:
     print("Could not connect to MongoDB")
 
-consumer = KafkaConsumer('test',bootstrap_servers=['my-kafka-0.my-kafka-headless.mykafka-lokenmg.svc.cluster.local:9092'])
+consumer = KafkaConsumer('reactions',bootstrap_servers=['my-kafka-0.my-kafka-headless.mykafka-lokenmg.svc.cluster.local:9092'])
 # Parse received data from Kafka
 for msg in consumer:
     record = json.loads(msg.value)
     print(record)
-    name = record['name']
+    userId = record["userId"]
+    objectId = record["objectId"]
+    reactionId = record["reactionId"]
 
     # Create dictionary and ingest data into MongoDB
     try:
-       pelicula_rec = {'name':name }
-       print (pelicula_rec)
-       pelicula_id = db.peliculas_info.insert_one(pelicula_rec)
-       print("Data inserted with record ids", pelicula_id)
+       reaction_rec = {
+         'userId': userId,
+         'objectId': objectId,
+         'reactionId': reactionId
+         }
+         
+       print (reaction_rec)
+       reaction_id = db.peliculas_info.insert_one(reaction_rec)
+       print("Data inserted with record ids", reaction_id)
     except:
        print("Could not insert into MongoDB")
     try:
        agg_result= db.peliculas_info.aggregate(
        [{
          "$group" : 
-         {  "_id" : "$name", 
+         {  "_id" : {
+               "objectId": "$objectId",
+               "reactionId": "$reactionId"
+            }, 
             "n"    : {"$sum": 1}
          }}
        ])
