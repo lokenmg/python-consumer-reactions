@@ -52,12 +52,12 @@ for msg in consumer:
          }
          
        print (reaction_rec)
-       reaction_id = db.peliculas_info.insert_one(reaction_rec)
+       reaction_id = db.peliculas_reactions.insert_one(reaction_rec)
        print("Data inserted with record ids", reaction_id)
     except:
        print("Could not insert into MongoDB")
     try:
-       agg_result= db.peliculas_info.aggregate(
+       agg_result= db.peliculas_reactions.aggregate(
        [{
          "$group" : 
          {  "_id" : {
@@ -70,8 +70,8 @@ for msg in consumer:
        db.peliculas_summary.delete_many({})
        for i in agg_result:
          print(i)
-         summary_id = db.peliculas_summary.insert_one(i)
-         print("Summary inserted with record ids", summary_id)
+         summary_id = db.peliculas_summaryreactions.insert_one(i)
+         print("Reaction inserted with record ids", summary_id)
 
     except Exception as e:
        print(f'group by caught {type(e)}: ')
