@@ -67,7 +67,7 @@ for msg in consumer:
             "n"    : {"$sum": 1}
          }}
        ])
-       db.peliculas_summary.delete_many({})
+       db.peliculas_summaryreactions.delete_many({})
        for i in agg_result:
          print(i)
          summary_id = db.peliculas_summaryreactions.insert_one(i)
